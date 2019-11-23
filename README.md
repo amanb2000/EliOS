@@ -53,5 +53,6 @@ Who it’s for: Eli (case study), potentially generalized to public market or re
 * 5-Button Likhert Scale
 * Slider
 * Rich Text Input
+* Short text input (Email, Postal, etc.)
 * File Upload
 * Google Auth (I can handle this...)
