@@ -24,7 +24,7 @@
     <!-- Bottom Tray -->
     <div class='e-tray e-bar'>
         <div class='e-tray-bttn'>
-            <i class='material-icons-outlined e-tray-icon'>calendar_today</i>
+            <i class='material-icons-outlined e-tray-icon'>person</i>
             <div class='e-tray-caption'>Profile</div>
         </div>
         <router-link class='e-tray-bttn' to="/data-entry">
@@ -32,7 +32,7 @@
             <div class='e-tray-caption'>Track</div>
         </router-link>
         <div class='e-tray-bttn'>
-            <i class='material-icons e-tray-icon'>local_bar</i>
+            <i class='material-icons-outlined e-tray-icon'>people_alt</i>
             <div class='e-tray-caption'>Contacts</div>
         </div>
     </div>

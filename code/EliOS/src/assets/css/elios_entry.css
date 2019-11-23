@@ -30,6 +30,12 @@ body {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
+.e-form-container::-webkit-scrollbar {
+    display: none;
+}
+.e-form-container::-webkit-scrollbar-thumb {
+    display: none;
+}
 .e-form {
     display: block;
     height: 100%;
@@ -102,4 +108,46 @@ body {
 }
 .e-form-radio-label {
     font-size: 3rem;
+}
+.e-form-text {
+    display: flex;
+    justify-content: center;
+    border: 1px solid grey;
+    padding: 0.2rem 0.3rem;
+    font-size: 1.2rem;
+}
+.e-form-bttn {
+    background-color: rgba(129,99,204,1);
+    width: auto;
+    height: auto;
+    font-size: 1.4rem;
+    display: flex;
+    border: none;
+    padding: 0.3rem 0.5rem;
+}
+.e-form-input-slider {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.e-form-slider {
+    -webkit-appearance: none;
+    height: 0.4rem;
+    width: 80%;
+    margin-bottom: 1.5rem;
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(20%, rgba(161,185,255,1)), color-stop(80%, rgba(129,99,204,1)));
+    outline: none;
+}
+.e-form-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none; 
+    border-radius: 1rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #5555bf;
+}
+.e-form-slider-value {
+    font-size: 1.4rem;
 }

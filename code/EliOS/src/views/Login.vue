@@ -1,12 +1,14 @@
 <template>
     <div class = "login">
-        <h3>Sign In</h3>
-        <input type="text" placeholder="Email" v-model="email"><br>
-        <input type="password" placeholder="Password" v-model="password"><br>
-        <button @click="login">Connection</button>
-        <br />
-        <span class="red">{{ err }}</span>
-        <p>Don't have an account? You can <router-link to="/sign-up">create one!</router-link></p>
+        <div class='signin-center'>
+            <h1>Sign In</h1>
+            <input type="text" placeholder="Email" class='e-form-text' v-model="email"><br>
+            <input type="password" placeholder="Password" class='e-form-text' v-model="password"><br>
+            <button @click="login" class='e-form-bttn'>Sign In</button>
+            <br />
+            <span class="red">{{ err }}</span>
+            <p>Don't have an account? You can <router-link to="/sign-up">create one!</router-link></p>
+        </div>
     </div>
 </template>
 
@@ -66,17 +68,20 @@ export default {
 
 <style scoped>
     .login {
-        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+         background-color: #cad4f8;
     }
-    input {
-        margin: 10px 0;
-        width: 20%;
-        padding: 15px;
-    }
-    button {
-        margin-top: 20px;
-        width: 10%;
-        cursor: pointer;
+    .signin-center {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
     }
     p {
         margin-top: 40px;
@@ -89,4 +94,5 @@ export default {
     .red {
         color: red;
     }
+    @import "../assets/css/elios_entry.css";
 </style>
