@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    background: #fff9ef;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+.e-bar {
+    font-size: 16vw;
+    color: black;
+    height: 10rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.e-top-bar {
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(20%, rgba(161,185,255,1)), color-stop(80%, rgba(129,99,204,1)));
+}
+.e-tray {
+    background-color: #fff9ef;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.10), 0 -4px 6px rgba(0,0,0,0.10);
+    margin-top: 1.4rem;
+}
+.e-tray-bttn {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    cursor: pointer;
+}
+/* .e-tray-bttn:not(:first-child) {
+    border-left: 1px solid black;
+} */
+.e-tray-icon {
+    font-size: 6rem;
+}
+.e-tray-icon-track {
+    font-size: 8rem;
+}
+.e-tray-caption {
+    font-size: 2rem;
+}
+.e-scroll-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.e-scroller {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.e-scroller::-webkit-scrollbar {
+    display: none;
+}
+.e-scroll-pane {
+    width: 100%;
+    display: flex;
+    flex: 1 0 auto;
+    scroll-snap-align: start;
+    justify-content: center;
+}
+.e-scroll-pane img {
+    width: auto;
+    height: 60%;
+    align-self: center;
+}
+.e-scroll-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+}
+.e-scroll-icon {
+    color: black;
+    margin: 0 0.3rem;
+}
