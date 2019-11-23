@@ -1,16 +1,27 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import Router from "vue-router";
 import Home from "../views/Home.vue";
 import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "home",
-    component: Home
+    component: Home,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/",
+    redirect: "/login"
+  },
+  {
+    path: "*",
+    redirect: "/login"
   },
   {
     path: "/about",
@@ -33,8 +44,6 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
-  routes
+export default new Router({
+  routes: routes
 });
-
-export default router;
