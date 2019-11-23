@@ -20,7 +20,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://api.openweathermap.org/data/2.5/weather?q='+'London'+'&?units=metric&APPID='+'39718834535fb8fff8e625fd17ca5556')
+      .get('http://api.openweathermap.org/data/2.5/weather?q='+'Toronto'+'&?units=metric&APPID='+'39718834535fb8fff8e625fd17ca5556')
       .then(response => (this.info = response))
   }
 };

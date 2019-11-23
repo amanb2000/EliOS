@@ -18,24 +18,8 @@ export default new Vuex.Store({
             console.log('Stored user data')
             state.userObject = data;
         },
-        REMOVE_LINK: function(state, link) {
-            state.links.splice(link, 1);
-        },
-        REMOVE_ALL: function(state) {
-            state.links = [];
-        }
     },
     actions: { // This is where you put async operations
-        removeLink: function(context, link) {
-            context.commit("REMOVE_LINK", link);
-        },
-        removeAll({commit}) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    commit('REMOVE_ALL')
-                    resolve()
-                }, 1500);
-            });
-        }
+        
     }
 });
