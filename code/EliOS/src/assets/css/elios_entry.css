@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    background: #fff9ef;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+}
+.e-bar {
+    font-size: 12vw;
+    color: black;
+    height: 3rem;
+    width: 100%;
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    cursor: pointer;
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(20%, rgba(161,185,255,1)), color-stop(80%, rgba(129,99,204,1)));
+    text-decoration: none;
+}
+.e-form-container {
+    display: block;
+    width: 100%;
+    height: 94%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+.e-form {
+    display: block;
+    height: 100%;
+    width: 100%;
+    scroll-snap-align: start;
+}
+.e-form-question {
+    position: relative;
+    top: 10rem;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    margin: 0 0.2rem;
+    text-align: center;
+}
+.e-form-response {
+    position: relative;
+    top: 12rem;
+}
+.e-form-previous {
+    height: 2rem;
+    width: 100%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 1s;
+    color: grey;
+}
+.e-form-faded {
+    font-size: 0px;
+}
+.e-form-flow-bttn {
+    border-radius: 20px;
+    width: 36%;
+    left: 32%;
+    height: 3rem;
+    position: fixed;
+    display: flex;
+    font-size: 1.5rem;
+    bottom: 3rem;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+.e-form-flow-skip {
+    background-color: rgba(161,185,255,1);
+}
+.e-form-flow-next {
+    background-color: rgba(129,99,204,1);
+}
+.e-form-likhert-scale {
+    display: flex;
+    color: rgba(129,99,204,1);
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    font-size: 6rem;
+}
+.e-form-radio {
+    display: none;
+}
+.e-form-radio:checked + i:after {
+    font-size: 3rem;
+    content: "radio_button_checked";
+}
+.e-form-radio + i:after {
+    font-size: 3rem;
+    content: "radio_button_unchecked";
+}
+.e-form-radio-label {
+    font-size: 3rem;
+}

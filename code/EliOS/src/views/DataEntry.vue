@@ -1,68 +1,32 @@
 <template>
   <div class="data-entry">
-    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <h1>Data Entry!</h1>
-    <p>This is going to be freaking lit, man!</p>
-
-    <form @submit.prevent="submitDay()">
-        <p>
-            <label for="mood">Mood: </label>
-            <input type="number" id="mood" v-model="mood">
-        </p>
-        <p>
-            <label for="mood_var">Mood Variation: </label>
-            <input type="number" id="mood_var" v-model="moodVar">
-        </p>
-
-        <p>
-            <label for="sleep">Sleep (Hours): </label>
-            <input type="number" id="sleepp" v-model="sleep">
-        </p>
-        <p>
-            <label for="sleep_chunks">#Sleep Sessions: </label>
-            <input type="number" id="sleep_chunks" v-model="sleepChunks">
-        </p>
-
-        <p>
-            <label for="calories">Calories: </label>
-            <input type="number" id="calories" v-model="calories">
-        </p>
-
-        <p>
-            <label for="postal">Postal Code: </label>
-            <input type="text" id="postal" v-model="postal">
-        </p>
-
-        <p>
-            <label for="exercise_duration">Exercise Duration: </label>
-            <input type="number" id="exercise_duration" v-model="exerciseDuration">
-        </p>
-
-        <p>
-            <label for="exercise_intensity">Exercise Intensity: </label>
-            <input type="number" id="exercise_intensity" v-model="exerciseIntensity">
-        </p>
-
-        <p>
-            <label for="eeg_csv">EEG CSV: </label>
-            <input type="file" id="eeg_csv">
-        </p>
-
-        <input type="submit">
-    </form>
-
+    <!-- Top Tray -->
+    <router-link class='e-bar' to="/home">
+        <div id='welcome-text'>Return to Home</div>
+    </router-link>
+    <!-- Middle Interactive Section -->
+    <div class='e-form-previous' @click='jumpPrev'>Meow
+    </div>
+    <div v-on:scroll="placePrevious" class='e-form-container'>
+        <question prompt="How was your mood today overall?" type="likhert" v-model="mood"></question>
+        <question prompt="How much did your moood vary over today?" type="slider" min=1 max=17 v-model="moodVar"></question>
+        <question prompt="How much sleep did you get?" type="slider" min=0 max=24 v-model="sleep"></question>
+        <question prompt="How many calories (roughly) did you consume today?" type="slider" v-model="calories" min=0 max=1700></question>
+        <question prompt="How many hours did you spend exercising?" type="slider" min=0 max=12></question>
+        <question prompt="How intense was this exercise?" type="slider" min=0 max=12></question>
+        <question prompt="Upload the EEG from a guided meditation now if possible" type="upload"></question>
+    </div>
+    <div class='e-form-flow-bttn' @click="pushNext">Skip</div>
   </div>
 </template>
 
 <script>
-// import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import { mapState } from 'vuex';
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
 import firebase from 'firebase';
+import question from '@/components/Question.vue';
 
 export default {
-    name: "dataEntry", 
+    name: "dataEntry", // We should get the day's data when you're here
     data: function() {
         return {
             mood: null,
@@ -72,7 +36,8 @@ export default {
             calories: null,
             postal: null,
             exerciseDuration: null,
-            exerciseIntensity: null
+            exerciseIntensity: null,
+            selectedPrompt: 0
         }
     },
     methods: {
@@ -108,14 +73,32 @@ export default {
             var datObj = new Date(year, month-1, day, 0, 0, 0, 0);
             var epoch = datObj.getTime();
             epoch /= 1000;
-
             return(epoch)
+        },
+        placePrevious: function(e) {
+            this.selectedPrompt = Math.round(e.target.scrollTop/e.target.clientHeight);
+            
+        },
+        jumpPrev: function() {
+            var container = this.$el.querySelector(".e-form-container");
+            container.scrollTop = container.scrollTop - container.clientHeight;
+        },
+        pushNext: function() {
+            var container = this.$el.querySelector(".e-form-container");
+            container.scrollTop = container.scrollTop + container.clientHeight;
         }
     },
     computed: {
         ...mapState([
             'userObject'
         ])
+    },
+    components: {
+        'question': question
     }
 };
 </script>
+
+<style>
+@import "../assets/css/elios_entry.css";
+</style>
