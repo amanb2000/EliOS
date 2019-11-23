@@ -6,12 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        title: 'My Custom VUEX Title',
-        links: [
-            'http://google.com',
-            'deepthink.io',
-            'caretrack.io'
-        ]
+        userObject: {}
     },
     getters: {
         countLinks: function(state){
@@ -19,8 +14,9 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        ADD_LINK: function(state, link) {
-            state.links.push(link);
+        POPULATE_USER: function(state, data) {
+            console.log('Stored user data')
+            state.userObject = data;
         },
         REMOVE_LINK: function(state, link) {
             state.links.splice(link, 1);

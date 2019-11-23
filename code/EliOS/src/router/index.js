@@ -5,6 +5,7 @@ import firebase from 'firebase';
 import Home from "../views/Home.vue";
 import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
+import DataEntry from '../views/DataEntry.vue';
 
 Vue.use(Router);
 
@@ -43,6 +44,14 @@ const routes = [
     path: '/sign-up',
     name: 'SignUp',
     component: SignUp
+  }, 
+  {
+    path: '/data-entry',
+    name: 'DataEntry',
+    component: DataEntry,
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
 

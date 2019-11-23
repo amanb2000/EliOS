@@ -3,6 +3,13 @@
         <p>Welcome! Create your new new account:</p>
         <input type="text" placeholder="First Name" v-model="fname"><br />
         <input type="text" placeholder="Last Name" v-model="lname"><br />
+
+        <input type="text" placeholder="Postal Code" v-model="postal"><br />
+        <input type="text" placeholder="Diagnosis" v-model="diagnoses[0]"><br />
+        <input type="text" placeholder="Gender" v-model="gender"><br />
+        <input type="text" placeholder="Date of Birth" v-model="dob"><br />
+        
+
         <input type="text" placeholder="Email" v-model="email"><br>
         <input type="password" placeholder="Password" v-model="password"><br>
         <button @click="signup">Sign Up</button>
@@ -19,6 +26,12 @@ export default {
         return {
             fname: '',
             lname: '',
+
+            postal: '',
+            diagnoses: [''],
+            gender: '',
+            dob: '',
+
             email: '',
             password: ''
         }
@@ -33,8 +46,12 @@ export default {
                     firebase.firestore().collection('users').doc(user.user.uid).set({
                         fname: pather.fname,
                         lname: pather.lname,
-                        email: pather.email
-                        // add Gender, DOB, etc.
+                        email: pather.email,
+                        postal: pather.postal,
+                        diagnoses: pather.diagnoses,
+                        gender: pather.gender,
+                        dob: pather.dob
+                        
                     }).then(function() {
                         console.log('User successfully created!');
                         alert('Account was created!');

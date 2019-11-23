@@ -12,6 +12,7 @@
 
 <script>
 import firebase from 'firebase';
+import { mapMutations } from 'vuex';
 
 export default {
     name: 'login',
@@ -23,6 +24,14 @@ export default {
         };
     },
     methods: {
+        ...mapMutations([
+            'POPULATE_USER'
+        ]),
+        populateUser: function(data) {
+            console.log(data);
+            this.POPULATE_USER(data);
+            this.$router.push({name: 'home'});
+        },
         login: function() {
             this.err = '';
             let pather = this;
@@ -31,7 +40,20 @@ export default {
                 function(user) {
                     // alert('You have logged in!');
                     console.log(user);
-                    pather.$router.replace('home');
+                    firebase.firestore().collection('users').doc(user.user.uid).get().then((snapshot) => {
+                        console.log(snapshot);
+                        if(snapshot.exists){
+                            console.log('RECORD FOUND: User is ');
+                            pather.populateUser({data: snapshot.data(), user: user});
+                        }  
+                        else{
+                            alert('No record of user found...')
+                        }
+                    }).catch((reason) => {
+                        alert("Login failed when trying to read from database: " + reason);
+                        return;
+                    })
+
                 },
                 function(err) {
                     pather.err = ('Error in logging in: ' + err.message);
