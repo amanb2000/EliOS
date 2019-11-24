@@ -28,7 +28,7 @@
               <!-- {{ lastDays }} -->
               <h2 class='e-plot-title'>Mood</h2>
               <div class='e-chumapopa'>
-                <linechart :series="sleepInfo"></linechart>
+                <linenchart :series="sleepInfo"></linenchart>
               </div>
               <br />
               <div class = "lower-content">
@@ -96,6 +96,7 @@ import { mapState } from 'vuex';
 import firebase from 'firebase';
 import { Bar } from 'vue-chartjs'
 import LineChart from '@/components/LineChart.vue';
+import LinenChart from '@/components/LinenChart.vue';
 import RadarChart from '@/components/RadarChart.vue';
 import ResizeText from 'vue-resize-text';
 // import grapher from '@/grapher';
@@ -108,32 +109,34 @@ export default {
       status_select: 0,
       lastDays: [],
       sleepcollection: null,
-      
+      sleepArry: [],
+      sleepInfo: {}
     }
   },
   methods: {
     fillData: function() {
+      console.log('fillData passed');
       let pather = this;
-      let sleepArry = [];
-      let labels = []
+      this.sleepArry = [];
+      this.labels = []
       for(let i = 0; i < pather.lastDays.length; i++){
-        sleepArry.push(pather.lastDays[i].sleep);
-        labels.push(i);
+        pather.sleepArry.push(pather.lastDays[i].sleep);
+        pather.labels.push(i);
       }
-      console.log(sleepArry);
+      console.log(pather.sleepArry);
 
       this.sleepInfo = {
         name: "hours",
-        data: sleepArry
+        data: pather.sleepArry
       }
 
       this.sleepcollection = {
-        labels: labels,
+        labels: pather.labels,
         datasets: [
           {
             label: 'Sleep',
             backgroundColor: '#eedddd',
-            data: sleepArry
+            data: pather.sleepArry
           }
         ]
       }
@@ -146,6 +149,8 @@ export default {
     },
     getGraphData: function() {
       this.lastDays = [];
+
+
       let pather = this;
       let today = this.currentEpoch();
       firebase.firestore().collection('users').doc(pather.userObject.user.user.uid).collection('days').where("epoch", "<=", today).get().then((snapshot) => {
@@ -155,7 +160,7 @@ export default {
           console.log(snapshot.docs[i].data());
           pather.lastDays.push(snapshot.docs[i].data());
         }
-        this.fillData(); // test random data
+        pather.fillData(); // test random data
         console.log('That was a snapshot of all this users data!')
       });
     },
@@ -185,6 +190,7 @@ export default {
   },
   components: {
     "linechart": LineChart,
+    "linenchart": LinenChart,
     "radarchart": RadarChart
   },
   directives: {
