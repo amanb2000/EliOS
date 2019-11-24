@@ -2,7 +2,7 @@
   <div class="bd-main home">
     <!-- Top Tray -->
     <div class='e-bar e-top-bar'>
-        <div v-resize-text="{ratio:1, delay:100}" id='welcome-text'>Welcome, {{ userObject.data.fname }}</div>
+        <div v-resize-text="{ratio:1, maxFontSize:'70px', delay:100}" id='welcome-text'>Welcome, {{ userObject.data.fname }}</div>
     </div>
     <!-- Middle Scroll Section -->
     <div class='e-scroll-container'>
@@ -22,6 +22,7 @@
                   Don't forget to check our our newest visualizations for your progress 😄
                 </p>
               </div>
+              <line-chart :chart-data="sleepcollection"></line-chart>
             </div>
             <div class='e-scroll-pane'>
                 <img src='https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&w=1000&q=80'>
@@ -41,8 +42,8 @@
             </div>
         </div>
         <div class='e-scroll-status'>
-            <i v-bind:class="[status_select == 0 ? 'material-icons' : 'material-icons-outlined']" class='e-scroll-icon'>brightness_1</i>
-            <i v-bind:class="[status_select == 1 ? 'material-icons' : 'material-icons-outlined']" class='e-scroll-icon'>brightness_1</i>
+            <i v-bind:class="[status_select == 0 ? 'material-icons' : 'material-icons-outlined']" class='e-scroll-icon' @click='scrollDir'>brightness_1</i>
+            <i v-bind:class="[status_select == 1 ? 'material-icons' : 'material-icons-outlined']" class='e-scroll-icon' @click='scrollDir'>brightness_1</i>
             <!-- <i class='material-icons-outlined e-scroll-icon'>brightness_1</i>
             <i class='material-icons-outlined e-scroll-icon'>brightness_1</i> -->
         </div>
@@ -146,6 +147,9 @@ export default {
         epoch /= 1000;
         return(epoch)
     },
+    scrollDir: function (e) {
+      console.log(e);
+    }
   },
   computed: {
     ...mapState([

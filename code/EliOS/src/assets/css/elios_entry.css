@@ -142,6 +142,7 @@ body {
     border: 1px solid grey;
     padding: 0.2rem 0.3rem;
     font-size: 1.2rem;
+    background-color: white;
 }
 .e-form-num {
     display: flex;
@@ -154,7 +155,7 @@ body {
     outline: none;
 }
 .e-form-bttn {
-    background-color: rgba(129,99,204,1);
+    background-color: #ac9fdf;
     width: auto;
     height: auto;
     font-size: 1.4rem;
@@ -171,6 +172,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.e-form-select {
+    background-color: white;
 }
 .e-form-slider {
     -webkit-appearance: none;

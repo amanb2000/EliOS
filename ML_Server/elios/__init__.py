@@ -7,6 +7,8 @@ from flask import Flask, g, session, redirect, url_for, request, current_app, ma
 from functools import update_wrapper
 from apscheduler.schedulers.background import BackgroundScheduler
 import requests
+from sklearn.neural_network import MLPRegressor
+import numpy as np
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config')
@@ -84,25 +86,51 @@ def json_serial(obj):
 # CREATE SCHEDULED ACTIONS
 def train_model():
    with app.app_context():
-      doc_ref = get_conn().collections('users')
+      doc_ref = get_conn().collection('users')
 
       for row in doc_ref.get():
          user = row.to_dict()
-         days = []
+         frames = []
          for dt in doc_ref.document(row.id).collection('days').where("epoch", ">",  int(time.time()) - 604800).get():
             new_day = dt.to_dict()
-            new_day['diagnosis'] = user['diagnosis']
+            new_day['diagnosis'] = user['diagnosis'] if 'diagnosis' in user else None
             new_day['dob'] = user['dob']
             new_day['gender'] = user['gender']
-            days += [new_day]
+            frames = [new_day] + frames
+
+         if len(frames) < 1: continue
+         # Getting the X and y variable set up:
+         X = np.column_stack( ( np.asarray(frames[0]['Sleep']), np.asarray(frames[0]['Sleep Chunks']), np.asarray(frames[0]['Calories']), np.asarray(frames[0]['Mood']), np.asarray(frames[0]['Exercise Duration']), np.asarray(frames[0]['Exercise Intensity']),  np.asarray(frames[0]['Alpha']), np.asarray(frames[0]['Beta']), np.asarray(frames[0]['Theta']), np.asarray(frames[0]['Gamma']) ) )
+         y = np.column_stack( (np.asarray(frames[1]['Mood'])) )
+
+         for i in range(1, len(frames)-1):
+            X_cur = np.column_stack( ( np.asarray(frames[i]['Sleep']), np.asarray(frames[i]['Sleep Chunks']), np.asarray(frames[i]['Calories']), np.asarray(frames[i]['Mood']), np.asarray(frames[i]['Exercise Duration']), np.asarray(frames[i]['Exercise Intensity']),  np.asarray(frames[i]['Alpha']), np.asarray(frames[i]['Beta']), np.asarray(frames[i]['Theta']), np.asarray(frames[i]['Gamma']) ) )
+            y_cur = np.column_stack( (np.asarray(frames[i+1]['Mood'])) )
             
+            X = np.append(X, X_cur, axis=0)
+            y = np.append(y, y_cur)
+
+         # Training Model: 
+         clf = MLPRegressor(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(7, 6), random_state=1)
+         clf.fit(X, y)
+
+         def predictTomorrow(row): #Row is of form `frames[0].loc[1]`
+            x_obj = np.asarray([ row['Sleep'],row['Sleep Chunks'],row['Calories'],row['Mood'],row['Exercise Duration'],row['Exercise Intensity'], row['Alpha'],row['Beta'],row['Theta'],row['Gamma'] ])
+            y_pred = clf.predict(np.reshape(x_obj, (1, -1)))
+            return y_pred[0]
+
+         tmo = predictTomorrow(frames[6].loc[1])
+         print(tmo)
+         doc_ref.document(row.id).collection('days').document(dt.id).update({'moodpred': tmo})
    return
+
+
 
 # Add Job scheduler
 cron = BackgroundScheduler()
 
 # Add auto-triggered tasks
-cron.add_job(func=train_model, trigger='interval', hours=6)
+cron.add_job(func=train_model, trigger='interval', seconds=30)
 cron.start()
 
 # Shutdown scheduler on close

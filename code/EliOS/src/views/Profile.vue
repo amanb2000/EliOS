@@ -1,5 +1,5 @@
 <template>
-    <div class = "sign-up">
+    <div class = "profile">
         <!-- Middle Interactive Section -->
         <!-- <div class='e-form-previous' @click='jumpPrev'>Meow
         </div> -->
@@ -59,11 +59,10 @@
     </div>
 </template>
 <script>
-import firebase from 'firebase';
-import question from '@/components/Question.vue';
+// import firebase from 'firebase';
 
 export default {
-    name: 'signUp',
+    name: 'profile',
     data() {
         return {
             fname: '',
@@ -80,41 +79,10 @@ export default {
         }
     },
     methods: {
-        signup: function() {
-            let pather = this;
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-                function(user){
-                    
-                    console.log(user);
-                    firebase.firestore().collection('users').doc(user.user.uid).set({
-                        fname: pather.fname,
-                        lname: pather.lname,
-                        email: pather.email,
-                        postal: pather.postal,
-                        diagnoses: pather.diagnoses,
-                        gender: pather.gender,
-                        dob: pather.dob.valueAsNumber / 1000
-                        
-                    }).then(function() {
-                        console.log('User successfully created!');
-                        alert('Account was created!');
-                        // pather.$router.
-                    }).catch(function(error) {
-                        alert('Failed to create user when interfacing with database: ' + error.message);
-                    })
-                },
-                function(err){
-                    alert('Error in creating user: ' + err.message);
-                }
-            )
-        },
         pushNext: function() {
             var container = this.$el.querySelector(".e-form-container");
             container.scrollTop = container.scrollTop + container.clientHeight;
         }
-    },
-    components: {
-        'question': question
     }
 }
 </script>

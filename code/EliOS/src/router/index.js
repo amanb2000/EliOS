@@ -6,6 +6,7 @@ import Home from "../views/Home.vue";
 import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
 import DataEntry from '../views/DataEntry.vue';
+import Profile from '../views/Profile.vue';
 
 Vue.use(Router);
 
@@ -49,6 +50,14 @@ const routes = [
     path: '/data-entry',
     name: 'DataEntry',
     component: DataEntry,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
     meta: {
       requiresAuth: true
     }
