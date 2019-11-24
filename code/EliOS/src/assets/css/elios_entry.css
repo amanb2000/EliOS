@@ -109,12 +109,29 @@ body {
 .e-form-radio-label {
     font-size: 3rem;
 }
+.e-form-input-text {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
 .e-form-text {
     display: flex;
     justify-content: center;
     border: 1px solid grey;
     padding: 0.2rem 0.3rem;
     font-size: 1.2rem;
+}
+.e-form-num {
+    display: flex;
+    justify-content: center;
+    border: 1px solid grey;
+    padding: 0.2rem 0.3rem;
+    font-size: 1.2rem;
+}
+.e-form-text:focus {
+    outline: none;
 }
 .e-form-bttn {
     background-color: rgba(129,99,204,1);
@@ -124,6 +141,9 @@ body {
     display: flex;
     border: none;
     padding: 0.3rem 0.5rem;
+}
+.e-form-bttn:focus {
+    outline: none;
 }
 .e-form-input-slider {
     display: flex;

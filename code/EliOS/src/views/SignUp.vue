@@ -1,35 +1,59 @@
 <template>
     <div class = "sign-up">
         <!-- Middle Interactive Section -->
-        <div class='e-form-previous' @click='jumpPrev'>Meow
-        </div>
-        <div v-on:scroll="placePrevious" class='e-form-container'>
+        <!-- <div class='e-form-previous' @click='jumpPrev'>Meow
+        </div> -->
+        <div class='e-form-container'>
+            <router-link class='e-form-flow-bttn' id='return-bttn' to="/login">Cancel</router-link>
             <question prompt="First Name" type="text" v-model="fname"></question>
             <question prompt="Last Name" type="text" v-model="lname"></question>
 
-            <question prompt="How much sleep did you get?" type="slider" min=0 max=24 v-model="sleep"></question>
-            <question prompt="How many calories (roughly) did you consume today?" type="slider" v-model="calories" min=0 max=1700></question>
-            <question prompt="How many hours did you spend exercising?" type="slider" v-model="exerciseDuration" min=0 max=12></question>
-            <question prompt="How intense was this exercise?" type="slider" v-model="exerciseIntensity" min=0 max=12></question>
-            <question prompt="Upload the EEG from a guided meditation now if possible" type="upload"></question>
+            <question prompt="Postal Code (Weather Info)" type="text" v-model="postal"></question>
             <div class='e-form'>
-                <div class='e-form-input-bttn' @click="signup">Sign Up</div>
+                <div class='e-form-question'>What Bear is best?</div>
+                <div class='e-form-response'>
+                    <div class='e-form-input-text'>
+                    <select class='e-form-text' v-model="diagnosis_sec">
+                        <option>Bipolar I</option>
+                        <option>Bipolar II</option>
+                        <option>Major Depression</option>
+                        <option>Moderate Depression</option>
+                        <option>Dysthemia</option>
+                        <option>Seasonal Affective Disorder</option>
+                        <option>Order</option>
+                    </select>
+                    </div>
+                </div>
             </div>
+            <question v-show="diagnosis_sec == 'Order'" prompt="What is the other diagnosis?" type="text" v-bind:value="(diagnosis_sec != 'Order') ? diagnosis_sec : value" v-model="diagnosis"></question>
+            <div class='e-form'>
+                <div class='e-form-question'> Gender </div>
+                <div class='e-form-response radio-stack'>
+                    <label class='e-form-label'>Male<input type='radio' name='gender' value='male' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
+                    <label class='e-form-label'>Female<input type='radio' name='gender' value='female' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
+                    <label class='e-form-label'>Other<input type='radio' name='gender' value='other' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
+                </div>
+            </div>
+            <div class='e-form'>
+                <div class='e-form-question'>Date of Birth</div>
+                <div class='e-form-response'>
+                    Day: <select><option></option></select><br>
+                    Month: <select><option></option></select><br>
+                    Year: <input type='text' class='e-form-num'>
+                </div>
+            </div>
+            <question prompt="Date of Birth" type="date" v-model="exerciseIntensity" min=0 max=12></question>
+            <question prompt="Email" type="text" v-model="email"></question>
+
+            <div class='e-form'>
+                <div class='e-form-response complete-cont'>
+                    <button class='e-form-bttn complete' @click="signup">Complete Sign Up</button>
+                </div>
+            </div>
+            <div class='e-form-flow-bttn' @click="pushNext">Next</div>
         </div>
-        <!-- <router-link class='e-form-flow-bttn'>Back to Login</router-link>
-        <input type="text" placeholder="First Name" v-model="fname"><br />
-        <input type="text" placeholder="Last Name" v-model="lname"><br />
-
-        <input type="text" placeholder="Postal Code" v-model="postal"><br />
-        <input type="text" placeholder="Diagnosis" v-model="diagnoses[0]"><br />
-        <input type="text" placeholder="Gender" v-model="gender"><br />
-        <input type="text" placeholder="Date of Birth" v-model="dob"><br />
-        
-
-        <input type="text" placeholder="Email" v-model="email"><br>
-        <input type="password" placeholder="Password" v-model="password"><br>
-        <button @click="signup">Sign Up</button>
-        <span>Or <router-link to="/login">back to login.</router-link></span> -->
+        <!-- <button @click="signup">Sign Up</button> -->
+        <!-- <span>Or <router-link to="/login">back to login.</router-link></span> -->
     </div>
 </template>
 
@@ -45,7 +69,8 @@ export default {
             lname: '',
 
             postal: '',
-            diagnoses: [''],
+            diagnosis: '',
+            diagnosis_sec: '',
             gender: '',
             dob: '',
 
@@ -82,9 +107,9 @@ export default {
                 }
             )
         },
-        jumpPrev: function() {
+        pushNext: function() {
             var container = this.$el.querySelector(".e-form-container");
-            container.scrollTop = container.scrollTop - container.clientHeight;
+            container.scrollTop = container.scrollTop + container.clientHeight;
         }
     },
     components: {
@@ -94,8 +119,13 @@ export default {
 </script>
 
 <style scoped>
-    .signup {
-        /* margin-top: 40px; */
+    .sign-up {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
         background-color: #cad4f8;
     }
     input {
@@ -103,14 +133,42 @@ export default {
         width: 20%;
         padding: 15px;
     }
-    button {
-        margin-top: 10px;
-        width: 10%;
-        cursor: pointer;
+    .radio-stack {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: flex-end;
+        width: 70%;
+        font-size: 2rem;
     }
-    span {
+    .e-form-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+    #return-bttn {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
         display: block;
-        margin-top: 20px;
-        font-size: 11px;
+        height: auto;
+        width: auto;
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: black;
     }
+    .complete {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    .complete-cont {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    @import "../assets/css/elios_entry.css";
 </style>

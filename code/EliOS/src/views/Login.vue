@@ -74,7 +74,7 @@ export default {
         height: 100%;
         justify-content: center;
         align-items: center;
-         background-color: #cad4f8;
+        background-color: #cad4f8;
     }
     .signin-center {
         display: flex;
