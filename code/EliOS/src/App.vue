@@ -1,13 +1,15 @@
 <template>
-  <div id="app">
-    <!-- <div id="nav"> -->
-      <!-- This is how you link to other routes:  -->
-      <!-- <router-link to="/">Home</router-link> | -->
-      <!-- <router-link to="/about">About</router-link> -->
-    <!-- </div> -->
-    <!-- <img alt="EliOS Logo" src="./assets/logo.png" /> -->
-    <!-- TODO: Add sexy top bar here... -->
-    <router-view />
+  <div class="display-box"> 
+    <div id="app">
+      <!-- <div id="nav"> -->
+        <!-- This is how you link to other routes:  -->
+        <!-- <router-link to="/">Home</router-link> | -->
+        <!-- <router-link to="/about">About</router-link> -->
+      <!-- </div> -->
+      <!-- <img alt="EliOS Logo" src="./assets/logo.png" /> -->
+      <!-- TODO: Add sexy top bar here... -->
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -23,7 +25,11 @@ html, body, #app {
   display: flex;
   flex-direction: column;
 }
-
+.display-box {
+  margin: auto;
+  height: 100vh;
+  width: 100vw;
+}
 #nav {
   padding: 30px;
 }
