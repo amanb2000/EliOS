@@ -182,7 +182,7 @@ export default {
             var year = dateObj.getFullYear();
 
             var epoch = this.getEpoch(year, month, day);
-            let daysPast = 0;
+            let daysPast = 2;
             return(epoch-(86400*daysPast));
         },
         getEpoch: function(year, month, day) {

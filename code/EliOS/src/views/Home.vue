@@ -9,10 +9,36 @@
         <div class='e-scroller' v-on:scroll="scroll_track">
             <div class='e-scroll-pane'>
               <!-- {{ lastDays }} -->
+              <div class='e-chumapopa'>
+                <line-chart :chart-data="sleepcollection" options=""></line-chart>
+              </div>
+              <br />
+              <div class = "lower-content">
+                <h3>Your Report: </h3>
+                <p>
+                  Remember to track your <b>mood</b> and <b>brain scan</b> for today!
+                </p>
+                <p>
+                  Don't forget to check our our newest visualizations for your progress 😄
+                </p>
+              </div>
               <line-chart :chart-data="sleepcollection"></line-chart>
             </div>
             <div class='e-scroll-pane'>
                 <img src='https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&w=1000&q=80'>
+                <!-- <div class='e-chumapopa'>
+                  <line-chart :chart-data="sleepcollection"></line-chart>
+                </div>
+                <br />
+                <div class = "lower-content">
+                  <h3>Your Report: </h3>
+                  <p>
+                    Remember to track your <b>mood</b> and <b>brain scan</b> for today!
+                  </p>
+                  <p>
+                    Don't forget to check our our newest visualizations for your progress 😄
+                  </p>
+                </div> -->
             </div>
         </div>
         <div class='e-scroll-status'>
@@ -51,6 +77,7 @@ import firebase from 'firebase';
 import { Bar } from 'vue-chartjs'
 import LineChart from '@/components/LineChart.vue';
 import ResizeText from 'vue-resize-text';
+// import grapher from '@/grapher';
 
 export default {
   extends: Bar,
@@ -59,7 +86,8 @@ export default {
     return {
       status_select: 0,
       lastDays: [],
-      sleepcollection: null
+      sleepcollection: null,
+      
     }
   },
   methods: {
@@ -143,3 +171,23 @@ export default {
 
 };
 </script>
+<style>
+#line-chart {
+  margin: 0 auto;
+}
+.lower-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+.e-chumapopa {
+  width: 100%;
+  display: flex;
+  flex: 0 1 auto;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.1rem;
+}
+</style>
