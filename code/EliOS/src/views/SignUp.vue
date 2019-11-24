@@ -29,9 +29,9 @@
             <div class='e-form'>
                 <div class='e-form-question'> Gender </div>
                 <div class='e-form-response radio-stack'>
-                    <label class='e-form-label'>Male<input type='radio' name='gender' value='male' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
-                    <label class='e-form-label'>Female<input type='radio' name='gender' value='female' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
-                    <label class='e-form-label'>Other<input type='radio' name='gender' value='other' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
+                    <label class='e-form-label' tabindex="0">Male<input type='radio' name='gender' value='male' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
+                    <label class='e-form-label' tabindex="0">Female<input type='radio' name='gender' value='female' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
+                    <label class='e-form-label' tabindex="0">Other<input type='radio' name='gender' value='other' class='e-form-radio' v-model="gender"><i class='material-icons'></i></label>
                 </div>
             </div>
             <!-- COMBAK
@@ -93,7 +93,7 @@ export default {
                         postal: pather.postal,
                         diagnoses: pather.diagnoses,
                         gender: pather.gender,
-                        dob: pather.dob
+                        dob: pather.dob.valueAsNumber / 1000
                         
                     }).then(function() {
                         console.log('User successfully created!');
