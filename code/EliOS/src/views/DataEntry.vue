@@ -8,12 +8,12 @@
     <div class='e-form-previous' @click='jumpPrev'>Meow
     </div>
     <div v-on:scroll="placePrevious" class='e-form-container'>
-        <question prompt="How was your mood today overall?" type="likhert" v-model="mood" @change="submitDay()"></question>
-        <question prompt="How much did your moood vary over today?" type="slider" min=1 max=17 v-model="moodVar"></question>
-        <question prompt="How much sleep did you get?" type="slider" min=0 max=24 v-model="sleep"></question>
-        <question prompt="How many calories (roughly) did you consume today?" type="slider" v-model="calories" min=0 max=1700></question>
-        <question prompt="How many hours did you spend exercising?" type="slider" v-model="exerciseDuration" min=0 max=12></question>
-        <question prompt="How intense was this exercise?" type="slider" v-model="exerciseIntensity" min=0 max=12></question>
+        <question prompt="How was your mood today overall?" type="likhert" v-model="mood" @change="submitDay"></question>
+        <question prompt="How much did your moood vary over today?" type="slider" min=1 max=17 v-model="moodVar" @change="submitDay"></question>
+        <question prompt="How much sleep did you get?" type="slider" min=0 max=24 v-model="sleep" @change="submitDay"></question>
+        <question prompt="How many calories (roughly) did you consume today?" type="slider" v-model="calories" min=0 max=1700 @change="submitDay"></question>
+        <question prompt="How many hours did you spend exercising?" type="slider" v-model="exerciseDuration" min=0 max=12 @change="submitDay"></question>
+        <question prompt="How intense was this exercise?" type="slider" v-model="exerciseIntensity" min=0 max=12 @change="submitDay"></question>
         <question prompt="Upload the EEG from a guided meditation now if possible" type="upload"></question>
     </div>
     <div class='e-form-flow-bttn' @click="pushNext">Skip</div>
