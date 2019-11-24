@@ -1,12 +1,12 @@
 from functools import wraps
-import firebase_admin
 import atexit
 import time
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, initialize_app
 from datetime import date, datetime, timedelta
 from flask import Flask, g, session, redirect, url_for, request, current_app, make_response
 from functools import update_wrapper
 from apscheduler.schedulers.background import BackgroundScheduler
+import requests
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config')
@@ -15,7 +15,7 @@ app.config.from_pyfile('config.py')
 app.secret_key = app.config['SECRET_KEY']
 # Add DB
 cred = credentials.Certificate('serviceAccountKey.json')
-firebase_admin.initialize_app(cred)
+initialize_app(cred, {'name': 'initial'})
 
 # Build cross-domain allowing wrapper
 
@@ -84,7 +84,18 @@ def json_serial(obj):
 # CREATE SCHEDULED ACTIONS
 def train_model():
    with app.app_context():
-      print("meow")
+      doc_ref = get_conn().collections('users')
+
+      for row in doc_ref.get():
+         user = row.to_dict()
+         days = []
+         for dt in doc_ref.document(row.id).collection('days').where("epoch", ">",  int(time.time()) - 604800).get():
+            new_day = dt.to_dict()
+            new_day['diagnosis'] = user['diagnosis']
+            new_day['dob'] = user['dob']
+            new_day['gender'] = user['gender']
+            days += [new_day]
+            
    return
 
 # Add Job scheduler
@@ -97,4 +108,4 @@ cron.start()
 # Shutdown scheduler on close
 # atexit.register(lambda: cron.shutdown(wait=False))
 
-from eli import fetcher
+from elios import process, analyzer

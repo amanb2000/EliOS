@@ -19,10 +19,11 @@ body, .bd-main {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 .e-top-bar {
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(20%, rgba(161,185,255,1)), color-stop(80%, rgba(129,99,204,1)));
+    background: rgba(161,185,255,1);
 }
 .e-tray {
-    background-color: #fff9ef;
+    background-color: #fff9ef !important;
+    background: none;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.10), 0 -4px 6px rgba(0,0,0,0.10);
     margin-top: 1.4rem;
     height: 10rem !important;

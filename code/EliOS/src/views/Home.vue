@@ -2,7 +2,7 @@
   <div class="bd-main home">
     <!-- Top Tray -->
     <div class='e-bar e-top-bar'>
-        <div id='welcome-text'>Welcome, {{ userObject.data.fname }}</div>
+        <div v-resize-text="{ratio:1, delay:100}" id='welcome-text'>Welcome, {{ userObject.data.fname }}</div>
     </div>
     <!-- Middle Scroll Section -->
     <div class='e-scroll-container'>
@@ -51,6 +51,7 @@ import { mapState } from 'vuex';
 import firebase from 'firebase';
 import { Bar } from 'vue-chartjs'
 import LineChart from '@/components/LineChart.vue';
+import ResizeText from 'vue-resize-text';
 
 export default {
   extends: Bar,
@@ -127,6 +128,9 @@ export default {
   },
   components: {
     LineChart
+  },
+  directives: {
+    ResizeText
   },
   mounted: function() {
     let superScope = this;

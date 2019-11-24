@@ -2,7 +2,7 @@
   <div class="data-entry">
     <!-- Top Tray -->
     <router-link class='e-bar' to="/home">
-        <div id='welcome-text'>Return to Home</div>
+        <div v-resize-text="{ratio:1.3, delay:100}" id='welcome-text'>Return to Home</div>
     </router-link>
     <div v-on:scroll="placePrevious" class='e-form-container'>
         <question prompt="How was your mood today overall?" type="likhert" v-model="mood" @change="submitDay"></question>
@@ -31,6 +31,7 @@ import { mapState } from 'vuex';
 import firebase from 'firebase';
 import question from '@/components/Question.vue';
 import axios from 'axios';
+import ResizeText from 'vue-resize-text';
 
 export default {
     name: "dataEntry", // We should get the day's data when you're here
@@ -212,10 +213,13 @@ export default {
     },
     components: {
         'question': question
+    },
+    directives: {
+        ResizeText
     }
 };
 </script>
 
-<style>
+<style scoped>
 @import "../assets/css/elios_entry.css";
 </style>
