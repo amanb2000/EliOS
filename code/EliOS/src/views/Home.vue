@@ -9,8 +9,7 @@
         <div class='e-scroller' v-on:scroll="scroll_track">
             <div class='e-scroll-pane'>
               <!-- {{ lastDays }} -->
-
-              <line-chart :chart-data="datacollection"></line-chart>
+              <line-chart :chart-data="sleepcollection" :options=""></line-chart>
             </div>
             <div class='e-scroll-pane'>
                 <img src='https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&w=1000&q=80'>
@@ -60,7 +59,7 @@ export default {
     return {
       status_select: 0,
       lastDays: [],
-      datacollection: null
+      sleepcollection: null
     }
   },
   methods: {
@@ -73,7 +72,7 @@ export default {
         labels.push(i);
       }
       console.log(sleepArry);
-      this.datacollection = {
+      this.sleepcollection = {
         labels: labels,
         datasets: [
           {
