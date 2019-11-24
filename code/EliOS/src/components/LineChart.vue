@@ -1,17 +1,56 @@
+<template>
+   <div>
+        <apexchart type="line" :options="chartOptions" :series="series"></apexchart>
+   </div>
+</template>
+
 <script>
-import { Line, mixins } from 'vue-chartjs';
-const { reactiveProp } = mixins
+import Vue from 'vue';
+import VueApexCharts from 'vue-apexcharts';
+
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 
 export default {
-    extends: Line,
-    mixins: [reactiveProp],
-    props: ['chartdata', 'options'],
-    mounted() {
-        this.renderChart(this.chartdata, this.options, {responsive: true});
-    }
-}
-
+    data: function() {
+        return {
+            series: [{
+                name: "Hours",
+                data: this.chartdata
+            }],
+            chartOptions: {
+            chart: {
+                    height: 350,
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Amount of sleep per night',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: ['20/11', '21/11', '22/11', '23/11', '24/11'],
+                }
+            }
+        }
+    },
+};
 </script>
+
 
 <style scoped>
 * {
@@ -19,3 +58,4 @@ export default {
 }
 
 </style>
+
