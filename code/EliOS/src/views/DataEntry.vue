@@ -14,7 +14,16 @@
         <question prompt="How many calories (roughly) did you consume today?" type="slider" v-model="calories" min=0 max=1700 @change="submitDay"></question>
         <question prompt="How many hours did you spend exercising?" type="slider" v-model="exerciseDuration" min=0 max=12 @change="submitDay"></question>
         <question prompt="How intense was this exercise?" type="slider" v-model="exerciseIntensity" min=0 max=12 @change="submitDay"></question>
-        <question prompt="Upload the EEG from a guided meditation now if possible" type="upload"></question>
+        
+        <div class = "e-form">
+            <div class = "e-form-question">Upload your Meditation EEG:</div>
+            <div class = "e-form-response">
+                <input type="file" @change="previewCSV" >
+                <p>Progress: {{uploadValue.toFixed()+"%"}}
+                <progress id="progress" :value="uploadValue" max="100" ></progress>  </p>
+                <button @click="onUpload">Upload</button>
+            </div>
+        </div>
     </div>
     <div class='e-form-flow-bttn' @click="pushNext">Skip</div>
   </div>
@@ -45,10 +54,50 @@ export default {
                 temperature: null,
                 clouds: null,
                 sunTime: null
-            }
+            },
+
+
+            uploadValue: 0,
+            eegCSV: null,
+            metaData: null
         }
     },
     methods: {
+        previewCSV: function(event) {
+            console.log('h');
+            this.uploadValue = 0;
+            this.eegCSV = null;
+            this.metaData = event.target.files[0];
+        },
+
+        onUpload: function(){
+            this.eegCSV=null;
+            let pather = this;
+            const storageRef=firebase.storage().ref(`${this.metaData.name}`).put(this.metaData);
+
+            storageRef.on(`state_changed`,snapshot=>{
+                pather.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+            }, error=>{console.log(error.message)},
+            ()=>{pather.uploadValue=100;
+                storageRef.snapshot.ref.getDownloadURL().then((url)=>{
+                    // this.picture =url;
+                    // Populate logic to save location of this file!
+                    console.log('URL: ' + url);
+                    firebase.firestore().collection('users').doc(pather.userObject.user.user.uid).collection('days').doc(pather.currentEpoch()+'').update({
+                        'EEG_URL': url,
+                    }).then(function() {
+                        console.log('Successfully uploaded CSV and saved URL in Database!')
+                    }).catch(function(error) {
+                        console.log('Could not save URL of EEG CSV after uploading it to the storage system: ' + error.message);
+                    });
+
+                });
+            }
+            );
+        },
+
+
+
         submitDay: function() {
             console.log("Attempting to submit...")
             let pather = this;
