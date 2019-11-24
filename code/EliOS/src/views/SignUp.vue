@@ -1,6 +1,22 @@
 <template>
     <div class = "sign-up">
-        <p>Welcome! Create your new new account:</p>
+        <!-- Middle Interactive Section -->
+        <div class='e-form-previous' @click='jumpPrev'>Meow
+        </div>
+        <div v-on:scroll="placePrevious" class='e-form-container'>
+            <question prompt="First Name" type="text" v-model="fname"></question>
+            <question prompt="Last Name" type="text" v-model="lname"></question>
+
+            <question prompt="How much sleep did you get?" type="slider" min=0 max=24 v-model="sleep"></question>
+            <question prompt="How many calories (roughly) did you consume today?" type="slider" v-model="calories" min=0 max=1700></question>
+            <question prompt="How many hours did you spend exercising?" type="slider" v-model="exerciseDuration" min=0 max=12></question>
+            <question prompt="How intense was this exercise?" type="slider" v-model="exerciseIntensity" min=0 max=12></question>
+            <question prompt="Upload the EEG from a guided meditation now if possible" type="upload"></question>
+            <div class='e-form'>
+                <div class='e-form-input-bttn' @click="signup">Sign Up</div>
+            </div>
+        </div>
+        <!-- <router-link class='e-form-flow-bttn'>Back to Login</router-link>
         <input type="text" placeholder="First Name" v-model="fname"><br />
         <input type="text" placeholder="Last Name" v-model="lname"><br />
 
@@ -13,12 +29,13 @@
         <input type="text" placeholder="Email" v-model="email"><br>
         <input type="password" placeholder="Password" v-model="password"><br>
         <button @click="signup">Sign Up</button>
-        <span>Or <router-link to="/login">back to login.</router-link></span>
+        <span>Or <router-link to="/login">back to login.</router-link></span> -->
     </div>
 </template>
 
 <script>
 import firebase from 'firebase';
+import question from '@/components/Question.vue';
 
 export default {
     name: 'signUp',
@@ -64,14 +81,22 @@ export default {
                     alert('Error in creating user: ' + err.message);
                 }
             )
+        },
+        jumpPrev: function() {
+            var container = this.$el.querySelector(".e-form-container");
+            container.scrollTop = container.scrollTop - container.clientHeight;
         }
     },
+    components: {
+        'question': question
+    }
 }
 </script>
 
 <style scoped>
     .signup {
-        margin-top: 40px;
+        /* margin-top: 40px; */
+        background-color: #cad4f8;
     }
     input {
         margin: 10px 0;
