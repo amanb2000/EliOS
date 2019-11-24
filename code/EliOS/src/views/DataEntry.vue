@@ -8,7 +8,7 @@
     <div class='e-form-previous' @click='jumpPrev'>Meow
     </div>
     <div v-on:scroll="placePrevious" class='e-form-container'>
-        <question prompt="How was your mood today overall?" type="likhert" v-model="mood" :change="submitDay()"></question>
+        <question prompt="How was your mood today overall?" type="likhert" v-model="mood" @change="submitDay()"></question>
         <question prompt="How much did your moood vary over today?" type="slider" min=1 max=17 v-model="moodVar"></question>
         <question prompt="How much sleep did you get?" type="slider" min=0 max=24 v-model="sleep"></question>
         <question prompt="How many calories (roughly) did you consume today?" type="slider" v-model="calories" min=0 max=1700></question>
@@ -53,16 +53,59 @@ export default {
             console.log("Attempting to submit...")
             let pather = this;
 
-            axios
-            .get('http://api.openweathermap.org/data/2.5/weather?q='+'Toronto'+'&?units=metric&APPID='+'39718834535fb8fff8e625fd17ca5556', {timeout: 2000})
-            .then(function(response) {
-                console.log(response.data.weather[0])
-                // this.weather.main = response.data.weather[0].main;
-                // this.weather.description = response.data.weather[0].description;
-                this.weather.temperature = response.data.main.temp;
-                this.weather.clouds = response.data.clouds.all;
-                this.weather.sunTime = response.data.sys.sunset - response.data.sys.sunrise;
+            if(this.weather.main == null){
+                axios
+                .get('http://api.openweathermap.org/data/2.5/weather?q='+'Toronto'+'&?units=metric&APPID='+'39718834535fb8fff8e625fd17ca5556')
+                .then(function(response) {
+                    console.log('Received weather response: ');
+                    console.log(response.data.weather[0].main);
+                    pather.weather.main = response.data.weather[0].main;
+                    pather.weather.description = response.data.weather[0].description;
+                    pather.weather.temperature = response.data.main.temp;
+                    pather.weather.clouds = response.data.clouds.all;
+                    pather.weather.sunTime = response.data.sys.sunset - response.data.sys.sunrise;
 
+                    firebase.firestore().collection('users').doc(pather.userObject.user.user.uid).collection('days').doc(pather.currentEpoch()+'').set({
+                        mood: pather.mood,
+                        moodVar: pather.moodVar,
+                        sleep: pather.sleep,
+                        sleepChunks: pather.sleepChunks,
+                        calories: pather.calories,
+                        postal: pather.postal,
+                        exerciseDuration: pather.exerciseDuration,
+                        exerciseIntensity: pather.exerciseIntensity,
+                        weather: pather.weather
+                    })
+                    .then(function() {
+                        console.log('Day successfully saved!');
+                        return;
+                    }).catch(function(error) {
+                        console.log('Failed to create user when interfacing with database: ' + error.message);
+                        return;
+                    });
+                })
+                .catch(function(err) {
+                    console.log('Weather API Error: ' + err.message);
+                    firebase.firestore().collection('users').doc(pather.userObject.user.user.uid).collection('days').doc(pather.currentEpoch()+'').set({
+                        mood: pather.mood,
+                        moodVar: pather.moodVar,
+                        sleep: pather.sleep,
+                        sleepChunks: pather.sleepChunks,
+                        calories: pather.calories,
+                        postal: pather.postal,
+                        exerciseDuration: pather.exerciseDuration,
+                        exerciseIntensity: pather.exerciseIntensity,
+                        weather: pather.weather
+                    })
+                    .then(function() {
+                        console.log('Day saved without weather!');
+                    }).catch(function(error) {
+                        console.log('Failed to create user when interfacing with database: ' + error.message);
+                    })
+                });
+            }
+
+            else {
                 firebase.firestore().collection('users').doc(this.userObject.user.user.uid).collection('days').doc(this.currentEpoch()+'').set({
                     mood: pather.mood,
                     moodVar: pather.moodVar,
@@ -79,26 +122,8 @@ export default {
                 }).catch(function(error) {
                     console.log('Failed to create user when interfacing with database: ' + error.message);
                 })
-            })
-            .catch(function(err) {
-                console.log('Weather API Timed out after 2 seconds: ' + err.message);
-                firebase.firestore().collection('users').doc(pather.userObject.user.user.uid).collection('days').doc(pather.currentEpoch()+'').set({
-                    mood: pather.mood,
-                    moodVar: pather.moodVar,
-                    sleep: pather.sleep,
-                    sleepChunks: pather.sleepChunks,
-                    calories: pather.calories,
-                    postal: pather.postal,
-                    exerciseDuration: pather.exerciseDuration,
-                    exerciseIntensity: pather.exerciseIntensity,
-                    weather: pather.weather
-                })
-                .then(function() {
-                    console.log('Day saved without weather!');
-                }).catch(function(error) {
-                    console.log('Failed to create user when interfacing with database: ' + error.message);
-                })
-            });
+            }
+            
 
             
         },
