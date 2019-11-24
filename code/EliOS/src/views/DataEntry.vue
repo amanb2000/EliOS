@@ -22,7 +22,8 @@
             </div>
         </div>
     </div>
-    <div class='e-form-flow-bttn' @click="pushNext">Skip</div>
+    <div v-show="(selectedPrompt != 6)" v-bind:class="[([mood, moodVar, sleep, calories, exerciseDuration, exerciseIntensity][selectedPrompt] == null) ? 'e-form-flow-skip' : 'e-form-flow-next']" class='e-form-flow-bttn' @click="pushNext"></div>
+    <router-link v-show="(selectedPrompt == 6)" v-bind:class="[([mood, moodVar, sleep, calories, exerciseDuration, exerciseIntensity][selectedPrompt] == null) ? 'e-form-flow-skip' : 'e-form-flow-next']" class='e-form-flow-bttn' to="/home"></router-link>
   </div>
 </template>
 
@@ -54,10 +55,9 @@ export default {
                 sunTime: null
             },
 
-
             uploadValue: 0,
             eegCSV: null,
-            metaData: null
+            metaData: null,
         }
     },
     methods: {
@@ -93,8 +93,6 @@ export default {
             }
             );
         },
-
-
 
         submitDay: function() {
             console.log("Attempting to submit...")
@@ -195,7 +193,6 @@ export default {
         },
         placePrevious: function(e) {
             this.selectedPrompt = Math.round(e.target.scrollTop/e.target.clientHeight);
-            
         },
         jumpPrev: function() {
             var container = this.$el.querySelector(".e-form-container");

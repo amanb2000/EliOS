@@ -83,9 +83,17 @@ body {
 }
 .e-form-flow-skip {
     background-color: rgba(161,185,255,1);
+    text-decoration: none;
+}
+.e-form-flow-skip::after {
+    content: "Skip";
 }
 .e-form-flow-next {
     background-color: rgba(129,99,204,1);
+    text-decoration: none;
+}
+.e-form-flow-next::after {
+    content: "Next"
 }
 .e-form-likhert-scale {
     display: flex;
