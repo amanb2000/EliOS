@@ -91,3 +91,9 @@ body, .bd-main {
     color: black;
     margin: 0 0.3rem;
 }
+.e-plot-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.2rem;
+}

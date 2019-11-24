@@ -100,6 +100,9 @@ def train_model():
 
             new_day['Sleep'] = day['sleep'] if 'sleep' in day else None
             new_day['Sleep Chunks'] = day['sleepChunks'] if 'sleepChunks' in day else None
+
+            if 'mood' not in day: break # Can't make mood predicition without mood data   
+
             new_day['Mood'] = day['mood'] if 'mood' in day else None
             new_day['Calories'] = day['calories'] if 'calories' in day else None
 
@@ -114,12 +117,12 @@ def train_model():
 
          if len(frames) < 1: continue
          # Getting the X and y variable set up:
-         X = np.column_stack( ( np.asarray(frames[0]['Sleep']), np.asarray(frames[0]['Sleep Chunks']), np.asarray(frames[0]['Calories']), np.asarray(frames[0]['Mood']), np.asarray(frames[0]['Exercise Duration']), np.asarray(frames[0]['Exercise Intensity']),  np.asarray(frames[0]['Alpha']), np.asarray(frames[0]['Beta']), np.asarray(frames[0]['Theta']), np.asarray(frames[0]['Gamma']) ) )
-         y = np.column_stack( (np.asarray(frames[1]['Mood'])) )
+         X = np.column_stack( ( np.array(frames[0]['Sleep']), np.array(frames[0]['Sleep Chunks']), np.array(frames[0]['Calories']), np.array(frames[0]['Mood']), np.array(frames[0]['Exercise Duration']), np.array(frames[0]['Exercise Intensity']),  np.array(frames[0]['Alpha']), np.array(frames[0]['Beta']), np.array(frames[0]['Theta']), np.array(frames[0]['Gamma']) ) )
+         y = np.column_stack( (np.array(frames[1]['Mood'])) )
 
          for i in range(1, len(frames)-1):
-            X_cur = np.column_stack( ( np.asarray(frames[i]['Sleep']), np.asarray(frames[i]['Sleep Chunks']), np.asarray(frames[i]['Calories']), np.asarray(frames[i]['Mood']), np.asarray(frames[i]['Exercise Duration']), np.asarray(frames[i]['Exercise Intensity']),  np.asarray(frames[i]['Alpha']), np.asarray(frames[i]['Beta']), np.asarray(frames[i]['Theta']), np.asarray(frames[i]['Gamma']) ) )
-            y_cur = np.column_stack( (np.asarray(frames[i+1]['Mood'])) )
+            X_cur = np.column_stack( ( np.array(frames[i]['Sleep']), np.array(frames[i]['Sleep Chunks']), np.array(frames[i]['Calories']), np.array(frames[i]['Mood']), np.array(frames[i]['Exercise Duration']), np.array(frames[i]['Exercise Intensity']),  np.array(frames[i]['Alpha']), np.array(frames[i]['Beta']), np.array(frames[i]['Theta']), np.array(frames[i]['Gamma']) ) )
+            y_cur = np.column_stack( (np.array(frames[i+1]['Mood'])) )
             
             X = np.append(X, X_cur, axis=0)
             y = np.append(y, y_cur)
@@ -129,7 +132,7 @@ def train_model():
          clf.fit(X, y)
 
          def predictTomorrow(row): #Row is of form `frames[0].loc[1]`
-            x_obj = np.asarray([ row['Sleep'],row['Sleep Chunks'],row['Calories'],row['Mood'],row['Exercise Duration'],row['Exercise Intensity'], row['Alpha'],row['Beta'],row['Theta'],row['Gamma'] ])
+            x_obj = np.array([ row['Sleep'],row['Sleep Chunks'],row['Calories'],row['Mood'],row['Exercise Duration'],row['Exercise Intensity'], row['Alpha'],row['Beta'],row['Theta'],row['Gamma'] ])
             y_pred = clf.predict(np.reshape(x_obj, (1, -1)))
             return y_pred[0]
 

@@ -9,8 +9,9 @@
         <div class='e-scroller' v-on:scroll="scroll_track">
             <div class='e-scroll-pane'>
               <!-- {{ lastDays }} -->
+              <h2 class='e-plot-title'>Sleep</h2>
               <div class='e-chumapopa'>
-                <line-chart :chart-data="sleepcollection" options=""></line-chart>
+                <line-chart :chart-data="sleepcollection"></line-chart>
               </div>
               <br />
               <div class = "lower-content">
@@ -22,46 +23,64 @@
                   Don't forget to check our our newest visualizations for your progress 😄
                 </p>
               </div>
-              <line-chart :chart-data="sleepcollection"></line-chart>
             </div>
             <div class='e-scroll-pane'>
-                <img src='https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&w=1000&q=80'>
-                <!-- <div class='e-chumapopa'>
-                  <line-chart :chart-data="sleepcollection"></line-chart>
-                </div>
-                <br />
-                <div class = "lower-content">
-                  <h3>Your Report: </h3>
-                  <p>
-                    Remember to track your <b>mood</b> and <b>brain scan</b> for today!
-                  </p>
-                  <p>
-                    Don't forget to check our our newest visualizations for your progress 😄
-                  </p>
-                </div> -->
+              <!-- {{ lastDays }} -->
+              <h2 class='e-plot-title'>Mood</h2>
+              <div class='e-chumapopa'>
+                <line-chart :chart-data="sleepcollection"></line-chart>
+              </div>
+              <br />
+              <div class = "lower-content">
+                <h3>Your Report: </h3>
+                <p>
+                  Remember to track your <b>mood</b> and <b>brain scan</b> for today!
+                </p>
+                <p>
+                  Don't forget to check our our newest visualizations for your progress 😄
+                </p>
+              </div>
+            </div>
+            <div class='e-scroll-pane'>
+              <!-- {{ lastDays }} -->
+              <h2 class='e-plot-title'>Brain Activity</h2>
+              <div class='e-chumapopa'>
+                <line-chart :chart-data="sleepcollection"></line-chart>
+              </div>
+              <br />
+              <div class = "lower-content">
+                <h3>Your Report: </h3>
+                <p>
+                  Remember to track your <b>mood</b> and <b>brain scan</b> for today!
+                </p>
+                <p>
+                  Don't forget to check our our newest visualizations for your progress 😄
+                </p>
+              </div>
             </div>
         </div>
         <div class='e-scroll-status'>
             <i v-bind:class="[status_select == 0 ? 'material-icons' : 'material-icons-outlined']" class='e-scroll-icon' @click='scrollDir'>brightness_1</i>
             <i v-bind:class="[status_select == 1 ? 'material-icons' : 'material-icons-outlined']" class='e-scroll-icon' @click='scrollDir'>brightness_1</i>
+            <i v-bind:class="[status_select == 2 ? 'material-icons' : 'material-icons-outlined']" class='e-scroll-icon' @click='scrollDir'>brightness_1</i>
             <!-- <i class='material-icons-outlined e-scroll-icon'>brightness_1</i>
             <i class='material-icons-outlined e-scroll-icon'>brightness_1</i> -->
         </div>
     </div>
     <!-- Bottom Tray -->
     <div class='e-tray e-bar'>
-        <div class='e-tray-bttn'>
+        <router-link class='e-tray-bttn' to='/profile'>
             <i class='material-icons-outlined e-tray-icon'>person</i>
             <div class='e-tray-caption'>Profile</div>
-        </div>
+        </router-link>
         <router-link class='e-tray-bttn' to="/data-entry">
             <i class='material-icons-outlined e-tray-icon'>add_box</i>
             <div class='e-tray-caption'>Track</div>
         </router-link>
-        <div class='e-tray-bttn'>
+        <router-link class='e-tray-bttn' to='/contacts'>
             <i class='material-icons-outlined e-tray-icon'>people_alt</i>
             <div class='e-tray-caption'>Contacts</div>
-        </div>
+        </router-link>
     </div>
   </div>
 </template>
@@ -188,6 +207,6 @@ export default {
   flex: 0 1 auto;
   justify-content: center;
   align-items: center;
-  margin-top: 1.1rem;
+  /* margin-top: 1.1rem; */
 }
 </style>
