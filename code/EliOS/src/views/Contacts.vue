@@ -11,7 +11,7 @@
             <div v-bind:key="n" v-for="n in userObject.data.contacts">
                 {{ n.name}}
             </div> 
-            <div>
+            <div class='contact-tile'>
 
             </div>
         </div>
@@ -41,7 +41,7 @@ export default {
                     pather.userObject.data.contacts = snapshot.data();
                 }  
                 else{
-                    alert('No records of user found...');
+                    // alert('No records of user found...');
                 }
             }).catch((reason) => {
                 alert("Login failed when trying to read from database: " + reason);
@@ -64,6 +64,9 @@ export default {
 </script>
 
 <style scoped>
+    .contact-tile {
+        
+    }
     .sign-up {
         display: flex;
         flex-direction: column;

@@ -5,6 +5,7 @@ body, .bd-main {
     flex-direction: column;
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
+    height: 100%;
 }
 .e-bar {
     font-size: 6vh;

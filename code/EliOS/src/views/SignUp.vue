@@ -43,7 +43,7 @@
                     Year: <input type='text' class='e-form-num'>
                 </div>
             </div> -->
-            <question prompt="Date of Birth" type="date" v-model="date"></question>
+            <question prompt="Date of Birth" type="date" v-model="dob"></question>
             <question prompt="Email" type="text" v-model="email"></question>
             <question prompt="Password" type="password" v-model="password"></question>
 
@@ -91,7 +91,7 @@ export default {
                         lname: pather.lname,
                         email: pather.email,
                         postal: pather.postal,
-                        diagnoses: pather.diagnoses,
+                        diagnoses: pather.diagnosis,
                         gender: pather.gender,
                         dob: pather.dob.valueAsNumber / 1000
                         
