@@ -11,7 +11,7 @@ To make sure we met the needs of our stakeholders, we conducted a **psychologica
 * Quick & clean data entry.
 * Clear and concise visualization of data.
 * Make effective and clear predictions.
-* 
+* Create a technology-assisted support system for the user. 
 
 
 Who it’s for: Eli (case study), potentially generalized to public market or rehab centres.

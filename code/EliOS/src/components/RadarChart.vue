@@ -16,10 +16,10 @@ export default {
       return {
         series: [{
             name: 'Today',
-            data: [80, 50, 30],
+            data: [80, 50, 30, 35, 31],
         }, {
             name: 'Average',
-            data: [50, 30, 40],
+            data: [50, 30, 40, 21, 24],
         }
         ],
         
@@ -44,7 +44,7 @@ export default {
           markers: {
               size: 0
           },
-          labels: ['Alpha', 'Beta', 'Gamma']
+          labels: ['Alpha', 'Beta', 'Gamma', 'Delta', 'Theta']
         }
       }
     },
