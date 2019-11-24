@@ -7,6 +7,8 @@ import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
 import DataEntry from '../views/DataEntry.vue';
 import Profile from '../views/Profile.vue';
+import Contacts from '../views/Contacts.vue';
+import AddContact from '../views/AddContact.vue';
 
 Vue.use(Router);
 
@@ -58,6 +60,22 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/contacts',
+    name: 'Contacts',
+    component: Contacts,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/add-contact',
+    name: 'AddContact',
+    component: AddContact,
     meta: {
       requiresAuth: true
     }

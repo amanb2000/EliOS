@@ -92,10 +92,24 @@ def train_model():
          user = row.to_dict()
          frames = []
          for dt in doc_ref.document(row.id).collection('days').where("epoch", ">",  int(time.time()) - 604800).get():
-            new_day = dt.to_dict()
-            new_day['diagnosis'] = user['diagnosis'] if 'diagnosis' in user else None
-            new_day['dob'] = user['dob']
-            new_day['gender'] = user['gender']
+            day = dt.to_dict()
+            new_day = {}
+            new_day['Diagnosis'] = user['diagnosis'] if 'diagnosis' in user else None
+            new_day['Dob'] = user['dob'] if 'dob' in user else None
+            new_day['Gender'] = user['gender'] if 'gender' in user else None
+
+            new_day['Sleep'] = day['sleep'] if 'sleep' in day else None
+            new_day['Sleep Chunks'] = day['sleepChunks'] if 'sleepChunks' in day else None
+            new_day['Mood'] = day['mood'] if 'mood' in day else None
+            new_day['Calories'] = day['calories'] if 'calories' in day else None
+
+            new_day['Exercise Duration'] = day['exerciseDuration'] if 'exerciseDuration' in day else None
+            new_day['Exercise Intensity'] = day['exerciseIntensity'] if 'excersiseIntencity' in day else None
+
+            new_day['Alpha'] = day['alpha'] if 'alpha' in day else None
+            new_day['Beta'] = day['beta'] if 'beta' in day else None
+            new_day['Theta'] = day['theta'] if 'theta' in day else None
+            new_day['Gamma'] = day['gamma'] if 'gamma' in day else None
             frames = [new_day] + frames
 
          if len(frames) < 1: continue
