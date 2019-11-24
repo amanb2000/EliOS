@@ -93,7 +93,7 @@ def train_model():
          frames = []
          for dt in doc_ref.document(row.id).collection('days').where("epoch", ">",  int(time.time()) - 604800).get():
             new_day = dt.to_dict()
-            new_day['diagnosis'] = user['diagnosis']
+            new_day['diagnosis'] = user['diagnosis'] if 'diagnosis' in user else None
             new_day['dob'] = user['dob']
             new_day['gender'] = user['gender']
             frames = [new_day] + frames
