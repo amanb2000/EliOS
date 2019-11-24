@@ -69,7 +69,7 @@
     </div>
     <!-- Bottom Tray -->
     <div class='e-tray e-bar'>
-        <router-link class='e-tray-bttn' to='/profile'>
+        <router-link class='e-tray-bttn' to="/home">
             <i class='material-icons-outlined e-tray-icon'>person</i>
             <div class='e-tray-caption'>Profile</div>
         </router-link>

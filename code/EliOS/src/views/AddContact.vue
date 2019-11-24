@@ -1,56 +1,57 @@
 <template>
     <div class = "add-contact">
         <div class='e-forms-container'>
-            <input type='text' placeholder='Name'>
-            <input type='text' placeholder='Email'>
-            <input type='text' placeholder='Phone Number'>
+            <input type='text' placeholder='Name' class='e-form-text' v-model="new_name">
+            <input type='text' placeholder='Email' class='e-form-text' v-model="new_email">
+            <input type='text' placeholder='Phone Number' class='e-form-text' v-model="new_phone">
+            <div class='e-form-action'> <router-link class='e-form-bttn' to="/contacts">Cancel</router-link><button class='e-form-bttn' @click="addContact">Save Contact</button></div>
         </div>
     </div>
 </template>
 <script>
 import firebase from 'firebase';
+import { mapState } from 'vuex';
 
 export default {
     name: 'signUp',
     data() {
         return {
+            contacts: null,
+            new_name: "",
+            new_email: '',
+            new_phone: ""
         }
     },
     methods: {
-        signup: function() {
-            let pather = this;
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-                function(user){
-                    
-                    console.log(user);
-                    firebase.firestore().collection('users').doc(user.user.uid).set({
-                        fname: pather.fname,
-                        lname: pather.lname,
-                        email: pather.email,
-                        postal: pather.postal,
-                        diagnoses: pather.diagnoses,
-                        gender: pather.gender,
-                        dob: pather.dob.valueAsNumber / 1000
-                        
-                    }).then(function() {
-                        console.log('User successfully created!');
-                        alert('Account was created!');
-                        // pather.$router.
-                    }).catch(function(error) {
-                        alert('Failed to create user when interfacing with database: ' + error.message);
+        addContact: function() {
+            if (this.userObject.data.contacts == undefined) {
+                this.contacts = [];
+            } else {
+                this.contacts = this.userObject.data.contacts;
+            }
+            // let fullContacts = this.contacts.push({'name': this.new_name, 'email': this.new_email, 'phone': this.new_phone})
+            firebase.firestore().collection('users').doc(this.userObject.user.user.uid).collection('contacts').add({
+                        name: this.new_name,
+                        email: this.new_email,
+                        phone: this.new_phone
                     })
-                },
-                function(err){
-                    alert('Error in creating user: ' + err.message);
-                }
-            )
+                    .then(function() {
+                        console.log('Data saved!');
+                    }).catch(function(error) {
+                        console.log('Failed to create user when interfacing with database: ' + error.message);
+                    });
         }
-    }
+    },
+    computed: {
+    ...mapState([
+        'userObject'
+    ])
+  },
 }
 </script>
 
 <style scoped>
-    .sign-up {
+    .add-contact {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -59,47 +60,16 @@ export default {
         align-items: center;
         background-color: #dbe0f5;
     }
-    input {
-        margin: 10px 0;
-        width: 20%;
-        padding: 15px;
+    .e-form-text {
+        margin: 0.5rem 0;
     }
-    .radio-stack {
+    .e-form-action {
         display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        justify-content: center;
-        align-items: flex-end;
-        width: 70%;
-        font-size: 2rem;
+        justify-content: space-between;
     }
-    .e-form-label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 0.5rem;
-    }
-    #return-bttn {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        display: block;
-        height: auto;
-        width: auto;
-        font-size: 1.2rem;
+    .e-form-bttn {
         text-decoration: none;
         color: black;
-    }
-    .complete {
-        width: 80%;
-        display: flex;
-        justify-content: center;
-        text-align: center;
-    }
-    .complete-cont {
-        display:flex;
-        justify-content: center;
-        align-items: center;
     }
     @import "../assets/css/elios_entry.css";
 </style>

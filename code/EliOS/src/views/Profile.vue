@@ -3,16 +3,17 @@
         <!-- Middle Interactive Section -->
         <!-- <div class='e-form-previous' @click='jumpPrev'>Meow
         </div> -->
+        <router-link class='e-form-flow-bttn' id='return-bttn' to="/home">Done</router-link>
         <div class="e-update-form">
-            First Name:<input type="text" class="e-form-text">
-            Last Name:<input type="text" class="e-form-text">
+            <input type="text" class="e-form-text" placeholder='First Name' v-model="userObject.data.fname">
+            <input type="text" class="e-form-text" placeholder='Last Name' v-model="userObject.data.lname">
             Postal Code:<input type="text"  class="e-form-text">
             Gender:<div>
-                        <label>Male<input type='radio' name='gender' value='male' v-model="gender"><i class='material-icons'></i></label>
-                        <label>Female<input type='radio' name='gender' value='female' v-model="gender"><i class='material-icons'></i></label>
-                        <label>Other<input type='radio' name='gender' value='other' v-model="gender"><i class='material-icons'></i></label>
+                        <label>Male<input type='radio' name='gender' value='male' v-model="userObject.data.gender"><i class='material-icons'></i></label>
+                        <label>Female<input type='radio' name='gender' value='female' v-model="userObject.data.gender"><i class='material-icons'></i></label>
+                        <label>Other<input type='radio' name='gender' value='other' v-model="userObject.data.gender"><i class='material-icons'></i></label>
                     </div>
-            Diagnosis:<select class='e-form-dropdown' v-model="diagnosis_sec">
+            Diagnosis:<select class='e-form-dropdown' v-model="userObject.data.gender">
                         <option>Bipolar I</option>
                         <option>Bipolar II</option>
                         <option>Major Depression</option>
@@ -22,20 +23,22 @@
                         <option>Other</option>
                     </select>
             
-            Date of Birth:<input type="date" class="e-form-date">
+            <input type="date" class="e-form-date" v-model="userObject.data.dob">
 
-            <div class='e-form'>
+            
+        </div>
+        <div class='e-save-bttn'>
                 <div class='e-form-response complete-cont'>
                     <button class='e-form-bttn complete' @click="profile">Update Profile</button>
                 </div>
             </div>
-        </div>
         <!-- <button @click="signup">Sign Up</button> -->
         <!-- <span>Or <router-link to="/login">back to login.</router-link></span> -->
     </div>
 </template>
 <script>
-// import firebase from 'firebase';
+import firebase from 'firebase';
+import { mapState } from 'vuex';
 
 export default {
     name: 'profile',
@@ -55,16 +58,24 @@ export default {
         }
     },
     methods: {
+        saveObject: function() {
+            firebase();
+        },
         pushNext: function() {
             var container = this.$el.querySelector(".e-form-container");
             container.scrollTop = container.scrollTop + container.clientHeight;
         }
+    },
+    computed: {
+    ...mapState([
+        'userObject'
+    ])
     }
 }
 </script>
 
 <style scoped>
-    .sign-up {
+    .profile {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -72,11 +83,6 @@ export default {
         justify-content: center;
         align-items: center;
         background-color: #dbe0f5;
-    }
-    input {
-        margin: 10px 0;
-        width: 20%;
-        padding: 15px;
     }
     .radio-stack {
         display: flex;
@@ -97,12 +103,16 @@ export default {
         position: absolute;
         top: 1rem;
         left: 1rem;
-        display: block;
-        height: auto;
+        display: flex;
+        height: 2.2rem;
         width: auto;
+        padding: 0.3rem 0.5rem;
+        justify-content: flex-start;
+        align-self: flex-start;
         font-size: 1.2rem;
         text-decoration: none;
         color: black;
+        background-color: rgba(161,185,255,1);
     }
     .complete {
         width: 80%;
@@ -115,11 +125,16 @@ export default {
         justify-content: center;
         align-items: center;
     }
+    .e-save-bttn {
+        display: flex;
+        flex: 1 1 10%;
+    }
     .e-update-form {
-        display: block;
+        display: flex;
         height: 100%;
         width: 100%;
         margin: auto;
+        flex: 2 1 90%;
     }
     @import "../assets/css/elios_entry.css";
 </style>
