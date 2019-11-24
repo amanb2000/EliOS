@@ -1,0 +1,6 @@
+flask
+flask-bcrypt
+firebase_admin
+apscheduler
+pandas
+numpy

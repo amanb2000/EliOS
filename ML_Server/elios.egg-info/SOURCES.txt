@@ -1,0 +1,9 @@
+setup.py
+elios/__init__.py
+elios/analyzer.py
+elios/process.py
+elios.egg-info/PKG-INFO
+elios.egg-info/SOURCES.txt
+elios.egg-info/dependency_links.txt
+elios.egg-info/requires.txt
+elios.egg-info/top_level.txt
