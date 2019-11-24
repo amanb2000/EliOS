@@ -1,7 +1,7 @@
 <template>
    <div>
         <apexchart type="line" :options="chartOptions" :series="series"></apexchart>
-        {{chartData}}
+        <!-- {{chartData}} -->
    </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
         return {
             series: [{
                 name: "Hours",
-                data: [4, 2.75, 3.5, 4, 2]
+                data: [2, 1, 1, 4, 2]
             }],
             chartOptions: {
             chart: {
@@ -31,7 +31,7 @@ export default {
                     enabled: false
                 },
                 stroke: {
-                    curve: 'straight'
+                    curve: 'straight',
                 },
                 title: {
                     text: 'Amount of sleep per night',
@@ -39,7 +39,7 @@ export default {
                 },
                 grid: {
                     row: {
-                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        colors: ['#fff3f3', 'transparent'], // takes an array which will be repeated on columns
                         opacity: 0.5
                     },
                 },
