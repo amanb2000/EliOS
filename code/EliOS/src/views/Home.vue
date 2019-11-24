@@ -11,7 +11,7 @@
               <!-- {{ lastDays }} -->
               <h2 class='e-plot-title'>Sleep</h2>
               <div class='e-chumapopa'>
-                <line-chart :chart-data="sleepcollection"></line-chart>
+                <linechart :series="sleepInfo"></linechart>
               </div>
               <br />
               <div class = "lower-content">
@@ -28,7 +28,7 @@
               <!-- {{ lastDays }} -->
               <h2 class='e-plot-title'>Mood</h2>
               <div class='e-chumapopa'>
-                <line-chart :chart-data="sleepcollection"></line-chart>
+                <linechart :series="sleepInfo"></linechart>
               </div>
               <br />
               <div class = "lower-content">
@@ -45,8 +45,9 @@
               <!-- {{ lastDays }} -->
               <h2 class='e-plot-title'>Brain Activity</h2>
               <div class='e-chumapopa'>
-                <line-chart :chart-data="sleepcollection"></line-chart>
+                <radarchart :series="sleepInfo"></radarchart> -->
               </div>
+              
               <br />
               <div class = "lower-content">
                 <h3>Your Report: </h3>
@@ -95,6 +96,7 @@ import { mapState } from 'vuex';
 import firebase from 'firebase';
 import { Bar } from 'vue-chartjs'
 import LineChart from '@/components/LineChart.vue';
+import RadarChart from '@/components/RadarChart.vue';
 import ResizeText from 'vue-resize-text';
 // import grapher from '@/grapher';
 
@@ -119,6 +121,12 @@ export default {
         labels.push(i);
       }
       console.log(sleepArry);
+
+      this.sleepInfo = {
+        name: "hours",
+        data: sleepArry
+      }
+
       this.sleepcollection = {
         labels: labels,
         datasets: [
@@ -176,7 +184,8 @@ export default {
     ])
   },
   components: {
-    LineChart
+    "linechart": LineChart,
+    "radarchart": RadarChart
   },
   directives: {
     ResizeText
