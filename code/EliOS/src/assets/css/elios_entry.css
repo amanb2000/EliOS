@@ -19,7 +19,7 @@ body {
     align-items: center;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     cursor: pointer;
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(20%, rgba(161,185,255,1)), color-stop(80%, rgba(129,99,204,1)));
+    background: rgba(161,185,255,1);
     text-decoration: none;
 }
 .e-form-container {
