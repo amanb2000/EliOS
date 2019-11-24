@@ -71,8 +71,9 @@ body, .bd-main {
     display: flex;
     flex: 1 0 auto;
     scroll-snap-align: start;
-    justify-content: center;
+    justify-content: flex-start;
     overflow-x: hidden;
+    flex-direction: column;
 }
 .e-scroll-pane img {
     width: auto;
