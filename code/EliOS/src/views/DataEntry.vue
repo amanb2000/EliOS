@@ -13,7 +13,7 @@
         <question prompt="How intense was this exercise?" type="slider" v-model="exerciseIntensity" min=0 max=12 @change="submitDay"></question>
         
         <div class = "e-form">
-            <div class = "e-form-question">Upload your Meditation EEG:</div>
+            <div class = "e-form-question">Upload your Meditation  :</div>
             <div class = "e-form-response">
                 <input type="file" @change="previewCSV" >
                 <p>Progress: {{uploadValue.toFixed()+"%"}}
@@ -183,7 +183,7 @@ export default {
             var year = dateObj.getFullYear();
 
             var epoch = this.getEpoch(year, month, day);
-            let daysPast = 4;
+            let daysPast = 0;
             return(epoch-(86400*daysPast));
         },
         getEpoch: function(year, month, day) {
