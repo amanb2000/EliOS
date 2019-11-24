@@ -1,5 +1,19 @@
 # EliOS
-End goal: predict mood episodes.
+**End goal:** Help people with mood disorders such as Bipolar, Depression, and Seasonal Affective Disorder to manage their position. 
+
+**How we do it:** We created **EliOS**, a system for **understanding, predicting,** and **collaborating** to treat mood disorders. Through brain scanning, mood & activity tracking, and artificial intelligence, we can change what it means to have mood disorders.
+
+## Motivation:
+EliOS was built for (and named after) our great friend Eli Scott. Eli is a student of Cognitive Science and has Bipolar disorder. The idea of EliOS was born when she noticed that none of the mood tracker apps that she could find really helped her manage her condition. They didn't even visualize the trends in her mood very effectively for her doctors, let alone make predictions or recommendations. Furthermore, none of the apps had any way to make the process of building and reaching out to a support network any easier. 
+
+## Goals:
+To make sure we met the needs of our stakeholders, we conducted a **psychological literature review** and a **user consultation meeting**. These are our resultant design goals:
+* Quick & clean data entry.
+* Clear and concise visualization of data.
+* Make effective and clear predictions.
+* 
+
+
 Who it’s for: Eli (case study), potentially generalized to public market or rehab centres.
 ## How we do it: 
 * What we’ll track:
