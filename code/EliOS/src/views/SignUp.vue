@@ -127,7 +127,7 @@ export default {
         height: 100%;
         justify-content: center;
         align-items: center;
-        background-color: #cad4f8;
+        background-color: #dbe0f5;
     }
     input {
         margin: 10px 0;
