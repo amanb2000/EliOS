@@ -1,6 +1,6 @@
 <template>
     <div class = "sign-up">
-        <iframe src='https://muse-eeg-app.firebaseapp.com/'>
+        <iframe src='https://muse-eeg-app.firebaseapp.com/'></iframe>
     </div>
 </template>
 <script>

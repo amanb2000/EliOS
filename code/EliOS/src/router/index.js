@@ -9,6 +9,7 @@ import DataEntry from '../views/DataEntry.vue';
 import Profile from '../views/Profile.vue';
 import Contacts from '../views/Contacts.vue';
 import AddContact from '../views/AddContact.vue';
+import MonitorBrain from '../views/MonitorBrain.vue';
 
 Vue.use(Router);
 
@@ -76,6 +77,14 @@ const routes = [
     path: '/add-contact',
     name: 'AddContact',
     component: AddContact,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/brain',
+    name: 'Brain',
+    component: MonitorBrain,
     meta: {
       requiresAuth: true
     }
