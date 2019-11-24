@@ -25,6 +25,12 @@
         <div v-else-if="type == 'text'" class='e-form-input-text'>
             <input type="text" class="e-form-text" v-bind:value="value" v-on="inputListeners">
         </div>
+        <div v-else-if="type == 'password'" class='e-form-input-text'>
+            <input type="password" class="e-form-text" v-bind:value="value" v-on="inputListeners">
+        </div>
+        <div v-else-if="type == 'date'" class='e-form-input-date'>
+            <input type="date" class="e-form-date" v-bind:value="value" v-on="inputListeners">
+        </div>
         <div v-else-if="type == 'slider'" class='e-form-input-slider'>
             <input type="range" v-bind:min="min" v-bind:max="max" class='e-form-slider' v-bind:value="value" v-on="inputListeners">
             <div class='e-form-slider-value'>{{ value != null ? value : (min + max)/2}}</div>
