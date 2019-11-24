@@ -9,7 +9,7 @@
         <div class='e-scroller' v-on:scroll="scroll_track">
             <div class='e-scroll-pane'>
               <!-- {{ lastDays }} -->
-              <line-chart :chart-data="sleepcollection" :options=""></line-chart>
+              <line-chart :chart-data="sleepcollection"></line-chart>
             </div>
             <div class='e-scroll-pane'>
                 <img src='https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&w=1000&q=80'>
