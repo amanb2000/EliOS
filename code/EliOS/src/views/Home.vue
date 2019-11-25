@@ -45,7 +45,7 @@
               <!-- {{ lastDays }} -->
               <h2 class='e-plot-title'>Brain Activity</h2>
               <div class='e-chumapopa'>
-                <radarchart :series="sleepInfo"></radarchart> -->
+                <radarchart :series="sleepInfo"></radarchart>
               </div>
               
               <br />
